@@ -198,23 +198,4 @@ public class Hangman {
         }
     }
 
-    //TODO Remove this method after completing the VG assignment!
-    public static char getUserInput() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter your guess here: ");
-        String input = sc.nextLine();
-        char letter = input.charAt(0);
-
-        if (input.length() > 1) {
-            System.out.println("You can only enter one letter!");
-            letter = getUserInput();
-            //Remove this else if-statement if Å, Ä and Ö are among the letters in a word!
-        } else if (!(letter >= 'A' && letter <= 'Z')) {
-            System.out.println("You must enter capital letters! In other words, from A to Z!");
-            letter = getUserInput();
-        }
-
-        return letter;
-    }
-
 }

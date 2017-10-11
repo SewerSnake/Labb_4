@@ -1,14 +1,17 @@
 package com.example.hangman;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -121,8 +124,7 @@ public class GameActivity extends AppCompatActivity {
 
         if (guessedLetterRaw.length() > 1) {
             guess = false;
-        } else {
-            //TODO Inform player that more than one letter was entered!
+            createToast("Du får bara skriva in en bokstav!");
         }
 
         char guessedLetter = '0';
@@ -141,7 +143,7 @@ public class GameActivity extends AppCompatActivity {
             if (!hangman.hasUsedLetter(guessedLetter) || hangman.getTriesLeft() == 10) {
                 hangman.guess(guessedLetter);
             } else {
-                //TODO Inform player that he/she has already entered this letter!
+                createToast("Du har redan använt denna bokstav!");
             }
         }
     }
@@ -220,6 +222,21 @@ public class GameActivity extends AppCompatActivity {
         } else {
             letters.setText(hangman.getHiddenWord());
         }
+    }
+
+    /**
+     * A toast is created to inform the player that he/she has
+     * done something undesirable, i.e giving more than one letter
+     * or entering a used letter.
+     * @param messagetoUser What shall be displayed to the player
+     */
+    private void createToast(String messagetoUser) {
+        Context context = getApplicationContext();
+        CharSequence text = messagetoUser;
+        int durationOfToast = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, durationOfToast);
+        toast.setGravity(Gravity.BOTTOM|Gravity.END, 150, 200);
+        toast.show();
     }
 
 }
