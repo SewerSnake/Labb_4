@@ -27,6 +27,8 @@ public class GameActivity extends AppCompatActivity {
 
     private TextView triesRemaining;
 
+    private TextView usedLetters;
+
     private ImageView image;
 
     @Override
@@ -50,6 +52,8 @@ public class GameActivity extends AppCompatActivity {
         letters.setText(hangman.getHiddenWord());
 
         triesRemaining = (TextView) findViewById(R.id.triesLeft);
+
+        usedLetters = (TextView) findViewById(R.id.usedLetters);
     }
 
     /** Called when the user taps the "Gissa!" button. Handles the user's
@@ -73,7 +77,7 @@ public class GameActivity extends AppCompatActivity {
 
         if (hangman.getTriesLeft() < tries) {
             loadImage("hang" + hangman.getTriesLeft() + ".gif");
-            //TODO: Show used letters
+            usedLetters.setText(hangman.getBadLettersUsed());
             String outputString = "";
             if (hangman.hasLost()) {
                 Intent intent = new Intent(this, ResultActivity.class);
