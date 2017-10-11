@@ -35,7 +35,7 @@ public class ResultActivity extends AppCompatActivity {
 
         resultOfGame = (TextView) findViewById(R.id.result);
         word = (TextView) findViewById(R.id.word);
-        //triesRemaining = (TextView) findViewById(R.id.triesRemaining);
+        triesRemaining = (TextView) findViewById(R.id.triesRemaining);
 
 
         Intent intent = getIntent();
@@ -48,10 +48,14 @@ public class ResultActivity extends AppCompatActivity {
             resultOfGame.setText(WIN);
             String output = "Ordet var: " + values[1];
             word.setText(output);
+            output = "Antal försök kvar: " + values[2];
+            triesRemaining.setText(output);
         } else if (values[0].equals("L")) {
             resultOfGame.setText(LOSE);
             String output = "Ordet var: " + values[1];
             word.setText(output);
+            output = "Antal försök kvar: " + values[2];
+            triesRemaining.setText(output);
         }
 
     }
