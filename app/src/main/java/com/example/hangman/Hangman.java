@@ -197,6 +197,7 @@ public class Hangman {
             return false;
         }
     }
+
     //TODO Remove this method after completing the VG assignment!
     public static char getUserInput() {
         Scanner sc = new Scanner(System.in);

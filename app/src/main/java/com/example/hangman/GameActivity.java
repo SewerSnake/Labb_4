@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,6 +35,9 @@ public class GameActivity extends AppCompatActivity {
     @Override
     /**
      * Creates everything necessary for a round of "Hangman".
+     * The basic gallow is loaded and shown on the screen.
+     * The number of tries the player has to escape the gallows
+     * is also shown.
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,36 +65,11 @@ public class GameActivity extends AppCompatActivity {
     public void makeGuess(View view) {
         int tries = hangman.getTriesLeft();
 
-        EditText editText = (EditText) findViewById(R.id.userGuess);
-        String guessedLetter = editText.getText().toString();
+        processUserInput();
 
-        if (!hangman.hasUsedLetter(guessedLetter.charAt(0)) || hangman.getTriesLeft() == 10) {
-            hangman.guess(guessedLetter.charAt(0));
-        }
+        checkIfWon();
 
-        if (hangman.hasWon()) {
-            Intent intent = new Intent(this, ResultActivity.class);
-            String message = "W " + hangman.getRealWord() + " " + hangman.getTriesLeft();
-            intent.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intent);
-        }
-
-        if (hangman.getTriesLeft() < tries) {
-            loadImage("hang" + hangman.getTriesLeft() + ".gif");
-            usedLetters.setText(hangman.getBadLettersUsed());
-            String outputString = "";
-            if (hangman.hasLost()) {
-                Intent intent = new Intent(this, ResultActivity.class);
-                String message = "L " + hangman.getRealWord() + " " + hangman.getTriesLeft();
-                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
-            } else {
-                outputString = hangman.getTriesLeft() + " försök kvar";
-            }
-            triesRemaining.setText(outputString);
-        } else {
-            letters.setText(hangman.getHiddenWord());
-        }
+        checkIfLost(tries);
     }
 
     /**
@@ -99,14 +78,14 @@ public class GameActivity extends AppCompatActivity {
      */
     private ArrayList<String> createWordList() {
         ArrayList<String> words = new ArrayList<>();
-        words.add("ANCIENT");
-        words.add("BURROW");
-        words.add("FRONT");
-        words.add("LEGENDARY");
-        words.add("PREMATURE");
-        words.add("QUARANTINE");
-        words.add("ROOSTER");
-        words.add("ZODIAC");
+        words.add("ALKEMI");
+        words.add("FORNTIDA");
+        words.add("HÅLA");
+        words.add("KARANTÄN");
+        words.add("LEGENDARISK");
+        words.add("PREMIÄR");
+        words.add("TUPP");
+        words.add("ZOO");
         return words;
     }
 
@@ -129,6 +108,81 @@ public class GameActivity extends AppCompatActivity {
 
         } catch(IOException e) {
             loadImage("hang10.gif");
+        }
+    }
+
+    /**
+     * TODO Write javadoc for processUserInput method!
+     */
+    private void processUserInput() {
+        boolean guess = true;
+        EditText editText = (EditText) findViewById(R.id.userGuess);
+        String guessedLetterRaw = editText.getText().toString();
+        Log.i("ITHS","guessedLetterRaw: " + guessedLetterRaw);
+
+        if (guessedLetterRaw.length() > 1) {
+            guess = false;
+        } else {
+            //TODO Inform player that more than one letter was entered!
+        }
+
+        char guessedLetter = guessedLetterRaw.charAt(0);
+
+        if ((guessedLetter >= 'a' && guessedLetter <= 'z') || guessedLetter == 'å'
+                || guessedLetter == 'ä' || guessedLetter == 'ö') {
+            String letter = String.valueOf(guessedLetter);
+            letter = letter.toUpperCase();
+            guessedLetter = letter.charAt(0);
+        }
+
+        if (guess) {
+            if (!hangman.hasUsedLetter(guessedLetter) || hangman.getTriesLeft() == 10) {
+                hangman.guess(guessedLetter);
+            } else {
+                //TODO Inform player that he/she has already entered this letter!
+            }
+        }
+    }
+
+    /**
+     * Determines if the player has won the game. Sends
+     * the identity of the word, as well as the number of
+     * tries left to a new ResultActivity.
+     */
+    private void checkIfWon() {
+        if (hangman.hasWon()) {
+            Intent intent = new Intent(this, ResultActivity.class);
+            String message = "W " + hangman.getRealWord() + " " + hangman.getTriesLeft();
+            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+        }
+    }
+
+    /**
+     * Determines if the player has lost the game. Updates
+     * the number of tries left. Informs the player which
+     * letters he/she has used. If the player loses,
+     * the identity of the word, as well as the number of
+     * tries left, are sent to a new ResultActivity.
+     * @param tries A number used for checking if the number of tries
+     *              has been reduced or not
+     */
+    private void checkIfLost(int tries) {
+        if (hangman.getTriesLeft() < tries) {
+            loadImage("hang" + hangman.getTriesLeft() + ".gif");
+            usedLetters.setText(hangman.getBadLettersUsed());
+            String outputString = "";
+            if (hangman.hasLost()) {
+                Intent intent = new Intent(this, ResultActivity.class);
+                String message = "L " + hangman.getRealWord() + " " + hangman.getTriesLeft();
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            } else {
+                outputString = hangman.getTriesLeft() + " försök kvar";
+            }
+            triesRemaining.setText(outputString);
+        } else {
+            letters.setText(hangman.getHiddenWord());
         }
     }
 
