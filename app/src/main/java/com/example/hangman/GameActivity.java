@@ -118,7 +118,6 @@ public class GameActivity extends AppCompatActivity {
         boolean guess = true;
         EditText editText = (EditText) findViewById(R.id.userGuess);
         String guessedLetterRaw = editText.getText().toString();
-        Log.i("ITHS","guessedLetterRaw: " + guessedLetterRaw);
 
         if (guessedLetterRaw.length() > 1) {
             guess = false;
@@ -126,14 +125,17 @@ public class GameActivity extends AppCompatActivity {
             //TODO Inform player that more than one letter was entered!
         }
 
-        char guessedLetter = guessedLetterRaw.charAt(0);
+        char guessedLetter = '0';
 
-        if ((guessedLetter >= 'a' && guessedLetter <= 'z') || guessedLetter == 'å'
-                || guessedLetter == 'ä' || guessedLetter == 'ö') {
-            String letter = String.valueOf(guessedLetter);
-            letter = letter.toUpperCase();
-            guessedLetter = letter.charAt(0);
+        if (!guessedLetterRaw.equals("")) {
+            guessedLetter = guessedLetterRaw.charAt(0);
         }
+
+        if (!isLetter(guessedLetter)) {
+            guess = false;
+        }
+
+        guessedLetter = letterConversion(guessedLetter);
 
         if (guess) {
             if (!hangman.hasUsedLetter(guessedLetter) || hangman.getTriesLeft() == 10) {
@@ -141,6 +143,40 @@ public class GameActivity extends AppCompatActivity {
             } else {
                 //TODO Inform player that he/she has already entered this letter!
             }
+        }
+    }
+
+    /**
+     * Determines if the provided character is a letter or not.
+     * The Swedish letters 'å', 'ä' and 'ö' are supported.
+     * @param character the character to examine
+     */
+    private boolean isLetter(char character) {
+        if ((character >= 'a' && character <= 'z') || character == 'å'
+                || character == 'ä' || character == 'ö' ||
+                (character >= 'A' && character <= 'Z') ||
+                character == 'Å' || character == 'Ä'
+                || character == 'Ö') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Allows the application to accept lowercase letters.
+     * If the provided letter is a lowercase letter, its
+     * uppercase counterpart is returned.
+     * @param guessedLetter A letter, which might be converted
+     */
+    private char letterConversion(char guessedLetter) {
+        if ((guessedLetter >= 'a' && guessedLetter <= 'z') || guessedLetter == 'å'
+                || guessedLetter == 'ä' || guessedLetter == 'ö') {
+            String letter = String.valueOf(guessedLetter);
+            letter = letter.toUpperCase();
+            return letter.charAt(0);
+        } else {
+            return guessedLetter;
         }
     }
 
