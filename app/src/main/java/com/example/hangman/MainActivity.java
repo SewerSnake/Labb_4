@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 /**
@@ -22,6 +23,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu_buttons, menu);
         return true;
+    }
+
+    /**
+     * When the "Info" button is tapped, information
+     * about the developer is shown. When the "Play"
+     * button is tapped, a new game is started.
+     * @param menuItem  The MenuItem that was pressed
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_about:
+                startActivity(new Intent(this, AboutActivity.class));
+                return true;
+            case R.id.action_play:
+                startActivity(new Intent(this, GameActivity.class));
+                return true;
+            default:
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     /** Called when the user taps the "PLAY GAME" button. Starts a new activity,

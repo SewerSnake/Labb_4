@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -69,6 +70,22 @@ public class GameActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.game_activity_buttons, menu);
         return true;
+    }
+
+    /**
+     * When the "Info" button is tapped, information
+     * about the developer is shown.
+     * @param menuItem  The MenuItem that was pressed
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_about:
+                startActivity(new Intent(this, AboutActivity.class));
+                return true;
+            default:
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     /**
