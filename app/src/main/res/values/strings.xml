@@ -17,13 +17,14 @@
     <!-- GameActivity -->
     <string name="guessButton">Guess!</string>
     <string name="startTries">10 tries left</string>
+    <string name="currentTries">tries left</string>
     <string name="the_hanged_man">The gallows</string>
     <string name="error_1">You may only enter one letter!</string>
     <string name="error_2">You have already used this letter!</string>
 
     <!-- ResultActivity -->
     <string name="returnToMain">Back to main menu</string>
-    <string name="theWord">The word was: </string>
-    <string name="triesAtEnd">Tries left: </string>
+    <string name="theWord">The word was:</string>
+    <string name="triesAtEnd">Tries left:</string>
 
 </resources>

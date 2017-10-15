@@ -23,6 +23,7 @@ import java.util.ArrayList;
  */
 public class GameActivity extends AppCompatActivity {
 
+    // Allows information to be sent from one activity to another
     public static final String EXTRA_MESSAGE = "com.example.hangman.message";
 
     private Hangman hangman;
@@ -35,13 +36,14 @@ public class GameActivity extends AppCompatActivity {
 
     private ImageView image;
 
-    @Override
+
     /**
      * Creates everything necessary for a round of "Hangman".
      * The basic gallow is loaded and shown on the screen.
      * The number of tries the player has to escape the gallows
      * is also shown.
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
@@ -63,8 +65,10 @@ public class GameActivity extends AppCompatActivity {
         usedLetters = (TextView) findViewById(R.id.usedLetters);
     }
 
-    /** Called when the user taps the "GUESS!" button. Handles the user's
-     * guess. Updates the application accordingly. */
+    /**
+     * Called when the user taps the "GUESS!" button. Handles the user's
+     * guess. Updates the application accordingly.
+     */
     public void makeGuess(View view) {
         int tries = hangman.getTriesLeft();
 
@@ -216,7 +220,7 @@ public class GameActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);
             } else {
-                outputString = hangman.getTriesLeft() + " försök kvar";
+                outputString = hangman.getTriesLeft() + " " + getResources().getString(R.string.currentTries);
             }
             triesRemaining.setText(outputString);
         } else {
