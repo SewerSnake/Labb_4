@@ -12,4 +12,8 @@
     <string name="game">Hänga gubbe</string>
     <string name="aboutButton">Om</string>
     <string name="about">Om spelet</string>
+    <string name="theWord">Ordet var:</string>
+    <string name="triesAtEnd">Antal försök kvar:</string>
+    <string name="error_1">Du får bara skriva in en bokstav!</string>
+    <string name="error_2">Du har redan använt denna bokstav!</string>
 </resources>

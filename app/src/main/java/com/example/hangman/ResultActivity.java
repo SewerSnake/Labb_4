@@ -16,6 +16,10 @@ public class ResultActivity extends AppCompatActivity {
 
     private final String LOSE = "You lost!";
 
+    private final String theWord = getResources().getString(R.string.theWord);
+
+    private final String triesAtEnd = getResources().getString(R.string.triesAtEnd);
+
     private String[] values = new String[3];
 
     private TextView resultOfGame;
@@ -37,7 +41,6 @@ public class ResultActivity extends AppCompatActivity {
         word = (TextView) findViewById(R.id.word);
         triesRemaining = (TextView) findViewById(R.id.triesRemaining);
 
-
         Intent intent = getIntent();
 
         String receivedMessage = intent.getStringExtra(GameActivity.EXTRA_MESSAGE);
@@ -46,21 +49,20 @@ public class ResultActivity extends AppCompatActivity {
 
         if (values[0].equals("W")) {
             resultOfGame.setText(WIN);
-            String output = "Ordet var: " + values[1];
+            String output = theWord + values[1];
             word.setText(output);
-            output = "Antal försök kvar: " + values[2];
+            output = triesAtEnd + values[2];
             triesRemaining.setText(output);
         } else if (values[0].equals("L")) {
             resultOfGame.setText(LOSE);
-            String output = "Ordet var: " + values[1];
+            String output = theWord + values[1];
             word.setText(output);
-            output = "Antal försök kvar: " + values[2];
+            output = triesAtEnd + values[2];
             triesRemaining.setText(output);
         }
-
     }
 
-    /** Called when the user taps the "Tillbaka till huvudmenyn" button. Starts a new activity,
+    /** Called when the user taps the "BACK TO MAIN MENU" button. Starts a new activity,
      * which shows the name of the creator of the application. */
     public void mainMenu(View view) {
         Intent intent = new Intent(this, MainActivity.class);

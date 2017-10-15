@@ -17,14 +17,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /** Called when the user taps the "Spela spel" button. Starts a new activity,
+    /** Called when the user taps the "PLAY GAME" button. Starts a new activity,
      * which allows the user to play the "Hangman" game. */
     public void game(View view) {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
-    /** Called when the user taps the "Om" button. Starts a new activity,
+    /** Called when the user taps the "ABOUT" button. Starts a new activity,
      * which shows the name of the application creator. */
     public void about(View view) {
         Intent intent = new Intent(this, AboutActivity.class);

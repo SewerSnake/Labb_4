@@ -63,7 +63,7 @@ public class GameActivity extends AppCompatActivity {
         usedLetters = (TextView) findViewById(R.id.usedLetters);
     }
 
-    /** Called when the user taps the "Gissa!" button. Handles the user's
+    /** Called when the user taps the "GUESS!" button. Handles the user's
      * guess. Updates the application accordingly. */
     public void makeGuess(View view) {
         int tries = hangman.getTriesLeft();
@@ -124,7 +124,7 @@ public class GameActivity extends AppCompatActivity {
 
         if (guessedLetterRaw.length() > 1) {
             guess = false;
-            createToast("Du får bara skriva in en bokstav!");
+            createToast(getResources().getString(R.string.error_1));
         }
 
         char guessedLetter = '0';
@@ -143,7 +143,7 @@ public class GameActivity extends AppCompatActivity {
             if (!hangman.hasUsedLetter(guessedLetter) || hangman.getTriesLeft() == 10) {
                 hangman.guess(guessedLetter);
             } else {
-                createToast("Du har redan använt denna bokstav!");
+                createToast(getResources().getString(R.string.error_2));
             }
         }
     }
@@ -228,11 +228,11 @@ public class GameActivity extends AppCompatActivity {
      * A toast is created to inform the player that he/she has
      * done something undesirable, i.e giving more than one letter
      * or entering a used letter.
-     * @param messagetoUser What shall be displayed to the player
+     * @param messageToUser What shall be displayed to the player
      */
-    private void createToast(String messagetoUser) {
+    private void createToast(String messageToUser) {
         Context context = getApplicationContext();
-        CharSequence text = messagetoUser;
+        CharSequence text = messageToUser;
         int durationOfToast = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, durationOfToast);
         toast.setGravity(Gravity.BOTTOM|Gravity.END, 150, 200);
