@@ -7,19 +7,18 @@
 
     <!-- MainActivity -->
     <string name="hangman">Hangman</string>
-    <string name="om">Om</string>
-    <string name="spela_spel">Spela spel</string>
+    <string name="aboutButton">Om</string>
+    <string name="playGameButton">Spela spel</string>
 
     <!-- AboutActivity -->
-    <string name="programmerad_av_eric_groseclos">Programmerad av Eric Groseclos</string>
+    <string name="programmer">Programmerad av Eric Groseclos</string>
 
     <!-- GameActivity -->
-    <string name="gissa">Gissa!</string>
-    <string name="_10_f_rs_k_kvar">10 försök kvar</string>
+    <string name="guessButton">Gissa!</string>
+    <string name="startTries">10 försök kvar</string>
     <string name="the_hanged_man">Galgen</string>
 
     <!-- ResultActivity -->
-    <string name="tillbaka_till_huvudmenyn">Tillbaka till huvudmenyn</string>
-
+    <string name="returnToMain">Tillbaka till huvudmenyn</string>
 
 </resources>
