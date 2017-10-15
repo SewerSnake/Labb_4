@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Creates everything necessary for a round of "Hangman".
-     * The basic gallow is loaded and shown on the screen.
+     * The basic gallows is loaded and shown on the screen.
      * The number of tries the player has to escape the gallows
      * is also shown.
      */
@@ -65,6 +65,12 @@ public class GameActivity extends AppCompatActivity {
         usedLetters = (TextView) findViewById(R.id.usedLetters);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.game_activity_buttons, menu);
+        return true;
+    }
+
     /**
      * Called when the user taps the "GUESS!" button. Handles the user's
      * guess. Updates the application accordingly.
@@ -85,14 +91,14 @@ public class GameActivity extends AppCompatActivity {
      */
     private ArrayList<String> createWordList() {
         ArrayList<String> words = new ArrayList<>();
-        words.add("ALKEMI");
-        words.add("FORNTIDA");
-        words.add("HÅLA");
-        words.add("KARANTÄN");
-        words.add("LEGENDARISK");
-        words.add("PREMIÄR");
-        words.add("TUPP");
-        words.add("ZOO");
+        words.add("ALCHEMY");
+        words.add("ANCIENT");
+        words.add("BURROW");
+        words.add("LEGENDARY");
+        words.add("PREMIER");
+        words.add("QUARANTINE");
+        words.add("ROOSTER");
+        words.add("ZODIAC");
         return words;
     }
 
