@@ -1,6 +1,6 @@
 <resources>
     <string name="main_menu">Huvudmeny</string>
-    <string name="about">AboutActivity</string>
+    <string name="about">Om spelet</string>
     <string name="game">Hangman</string>
     <string name="result">Resultat</string>
     <string name="hangman">Hangman</string>
@@ -9,6 +9,6 @@
     <string name="gissa">Gissa!</string>
     <string name="_10_f_rs_k_kvar">10 försök kvar</string>
     <string name="tillbaka_till_huvudmenyn">Tillbaka till huvudmenyn</string>
-    <string name="the_hanged_man">The hanged man</string>
+    <string name="the_hanged_man">Galgen</string>
     <string name="programmerad_av_eric_groseclos">Programmerad av Eric Groseclos</string>
 </resources>

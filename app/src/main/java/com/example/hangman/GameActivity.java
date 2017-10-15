@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO Write javadoc for processUserInput method!
+     * Gets a letter from the player and makes a guess.
      */
     private void processUserInput() {
         boolean guess = true;
