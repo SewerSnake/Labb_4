@@ -12,9 +12,9 @@ import android.widget.TextView;
  */
 public class ResultActivity extends AppCompatActivity {
 
-    private final String WIN = "Du vann!";
+    private final String WIN = "You won!";
 
-    private final String LOSE = "Du förlorade!";
+    private final String LOSE = "You lost!";
 
     private String[] values = new String[3];
 
