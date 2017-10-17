@@ -17,4 +17,5 @@
     <string name="error_1">Du får bara skriva in en bokstav!</string>
     <string name="error_2">Du har redan använt denna bokstav!</string>
     <string name="currentTries">försök kvar</string>
+    <string name="oneTry">försök kvar</string>
 </resources>

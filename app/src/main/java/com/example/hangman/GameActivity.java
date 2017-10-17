@@ -224,10 +224,11 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Determines if the player has lost the game. Updates
-     * the number of tries left. Informs the player which
-     * letters he/she has used. If the player loses,
-     * the identity of the word, as well as the number of
-     * tries left, are sent to a new ResultActivity.
+     * the number of tries left and the gallows.
+     * Informs the player which letters he/she has used.
+     * If the player loses, the identity of the word, as
+     * well as the number of tries left, are sent to a new
+     * ResultActivity.
      * @param tries A number used for checking if the number of tries
      *              has been reduced or not
      */
@@ -242,7 +243,11 @@ public class GameActivity extends AppCompatActivity {
                 intent.putExtra("Game result", message);
                 startActivity(intent);
             } else {
-                outputString = hangman.getTriesLeft() + " " + getResources().getString(R.string.currentTries);
+                if (hangman.getTriesLeft() == 1) {
+                    outputString = hangman.getTriesLeft() + " " + getResources().getString(R.string.oneTry);
+                } else {
+                    outputString = hangman.getTriesLeft() + " " + getResources().getString(R.string.currentTries);
+                }
             }
             triesRemaining.setText(outputString);
         } else {
