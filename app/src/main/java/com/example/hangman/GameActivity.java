@@ -24,9 +24,6 @@ import java.util.ArrayList;
  */
 public class GameActivity extends AppCompatActivity {
 
-    // Allows information to be sent from one activity to another
-    public static final String EXTRA_MESSAGE = "com.example.hangman.message";
-
     private Hangman hangman;
 
     private TextView letters;
@@ -168,7 +165,9 @@ public class GameActivity extends AppCompatActivity {
 
         if (guess) {
             if (!hangman.hasUsedLetter(guessedLetter) || hangman.getTriesLeft() == 10) {
-                hangman.guess(guessedLetter);
+                if (!hangman.hasLost()) {
+                    hangman.guess(guessedLetter);
+                }
             } else {
                 createToast(getResources().getString(R.string.error_2));
             }
@@ -218,7 +217,7 @@ public class GameActivity extends AppCompatActivity {
         if (hangman.hasWon()) {
             Intent intent = new Intent(this, ResultActivity.class);
             String message = "W " + hangman.getRealWord() + " " + hangman.getTriesLeft();
-            intent.putExtra(EXTRA_MESSAGE, message);
+            intent.putExtra("Game result", message);
             startActivity(intent);
         }
     }
@@ -240,7 +239,7 @@ public class GameActivity extends AppCompatActivity {
             if (hangman.hasLost()) {
                 Intent intent = new Intent(this, ResultActivity.class);
                 String message = "L " + hangman.getRealWord() + " " + hangman.getTriesLeft();
-                intent.putExtra(EXTRA_MESSAGE, message);
+                intent.putExtra("Game result", message);
                 startActivity(intent);
             } else {
                 outputString = hangman.getTriesLeft() + " " + getResources().getString(R.string.currentTries);

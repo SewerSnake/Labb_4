@@ -49,7 +49,7 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String receivedMessage = intent.getStringExtra(GameActivity.EXTRA_MESSAGE);
+        String receivedMessage = intent.getStringExtra("Game result");
 
         values = receivedMessage.split(" ");
 
