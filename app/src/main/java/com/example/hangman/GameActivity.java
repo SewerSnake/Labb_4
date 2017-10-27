@@ -281,10 +281,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Saves User Interface state changes to the savedInstanceState.
+     * Saves the state of the current game.
      * The bundle will be passed on to the onCreate method if the
      * process is killed and restarted.
-     * @param savedInstanceState
+     * @param savedInstanceState    A bundle containing crucial info
      */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
