@@ -1,5 +1,7 @@
 package com.example.hangman;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -35,6 +37,38 @@ public class Hangman {
 
         newWord();
 
+    }
+
+    public Hangman(Bundle savedInstanceState) {
+
+        allWords = savedInstanceState.getStringArrayList("allWords");
+
+        ArrayList<String> usedLetterList;
+
+        usedLetterList = savedInstanceState.getStringArrayList("usedLetters");
+
+        for (String usedLetter : usedLetterList) {
+            usedLetters.add(usedLetter.charAt(0));
+        }
+
+        tries = savedInstanceState.getInt("tries", 10);
+
+        word = savedInstanceState.getString("word", "ANCIENT");
+
+        visible = savedInstanceState.getBooleanArray("visible");
+
+    }
+
+    public ArrayList<String> getAllWords() {
+        return allWords;
+    }
+
+    public ArrayList<Character> getUsedLetters() {
+        return usedLetters;
+    }
+
+    public boolean[] getVisible() {
+        return visible;
     }
 
     /**
@@ -166,10 +200,16 @@ public class Hangman {
         }
 
         String badLetters = sb.toString();
+
         if (badLetters.endsWith(", ")) {
             return badLetters.substring(0, badLetters.length() - 2);
         }
-        return badLetters;
+
+        if (usedLetters.size() > 0) {
+            return badLetters;
+        } else {
+            return "";
+        }
     }
 
     /**

@@ -48,11 +48,15 @@ public class GameActivity extends AppCompatActivity {
 
         image = (ImageView) findViewById(R.id.gallow);
 
-        loadImage("hang10.gif");
-
         ArrayList<String> words = createWordList();
 
-        hangman = new Hangman(words);
+        if (savedInstanceState == null) {
+            hangman = new Hangman(words);
+            loadImage("hang10.gif");
+        } else {
+            hangman = new Hangman(savedInstanceState);
+            loadImage("hang" + hangman.getTriesLeft() + ".gif");
+        }
 
         letters = (TextView) findViewById(R.id.hiddenWord);
 
@@ -61,6 +65,14 @@ public class GameActivity extends AppCompatActivity {
         triesRemaining = (TextView) findViewById(R.id.triesLeft);
 
         usedLetters = (TextView) findViewById(R.id.usedLetters);
+
+        if (hangman.getTriesLeft() == 1) {
+            triesRemaining.setText(hangman.getTriesLeft() + " " + getResources().getString(R.string.oneTry));
+        } else {
+            triesRemaining.setText(hangman.getTriesLeft() + " " + getResources().getString(R.string.currentTries));
+        }
+
+        usedLetters.setText(hangman.getBadLettersUsed());
     }
 
     @Override
@@ -266,6 +278,33 @@ public class GameActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, messageToUser, durationOfToast);
         toast.setGravity(Gravity.BOTTOM|Gravity.END, 150, 200);
         toast.show();
+    }
+
+    /**
+     * Saves User Interface state changes to the savedInstanceState.
+     * The bundle will be passed on to the onCreate method if the
+     * process is killed and restarted.
+     * @param savedInstanceState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putStringArrayList("allWords", hangman.getAllWords());
+
+        ArrayList<String> usedLetterList = new ArrayList<>();
+
+        for (Character usedLetter : hangman.getUsedLetters()) {
+            usedLetterList.add(String.valueOf(usedLetter));
+        }
+        savedInstanceState.putStringArrayList("usedLetters", usedLetterList);
+
+        savedInstanceState.putInt("tries", hangman.getTriesLeft());
+
+        savedInstanceState.putString("word", hangman.getRealWord());
+
+        savedInstanceState.putBooleanArray("visible", hangman.getVisible());
+
     }
 
 }
