@@ -5,11 +5,11 @@
     <string name="the_hanged_man">Galgen</string>
     <string name="programmer">Programmerad av Eric Groseclos</string>
     <string name="playGameButton">Spela spel</string>
-    <string name="main_menu">Huvudmeny</string>
+    <string name="main_menu">Hänga gubbe</string>
     <string name="returnToMain">Tillbaka till huvudmenyn</string>
     <string name="guessButton">Gissa!</string>
     <string name="hangman">Hänga gubbe</string>
-    <string name="game">Hänga gubbe</string>
+    <string name="game">Fly galgen!</string>
     <string name="aboutButton">Om</string>
     <string name="about">Om spelet</string>
     <string name="theWord">Ordet var:</string>

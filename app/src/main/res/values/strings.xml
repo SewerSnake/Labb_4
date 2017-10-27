@@ -1,9 +1,9 @@
 <resources>
 
     <!-- Labels -->
-    <string name="main_menu">Main menu</string>
+    <string name="main_menu">Hangman</string>
     <string name="about">About game</string>
-    <string name="game">Hangman</string>
+    <string name="game">Escape the gallows!</string>
     <string name="result">Result</string>
 
     <!-- MainActivity -->

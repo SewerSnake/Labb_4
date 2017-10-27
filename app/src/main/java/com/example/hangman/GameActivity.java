@@ -105,14 +105,13 @@ public class GameActivity extends AppCompatActivity {
      */
     private ArrayList<String> createWordList() {
         ArrayList<String> words = new ArrayList<>();
-        words.add("ALCHEMY");
-        words.add("ANCIENT");
-        words.add("BURROW");
-        words.add("LEGENDARY");
-        words.add("PREMIER");
-        words.add("QUARANTINE");
-        words.add("ROOSTER");
-        words.add("ZODIAC");
+
+        String[] wordArray = getResources().getStringArray(R.array.words);
+
+        for (String word : wordArray) {
+            words.add(word);
+        }
+
         return words;
     }
 
@@ -263,9 +262,8 @@ public class GameActivity extends AppCompatActivity {
      */
     private void createToast(String messageToUser) {
         Context context = getApplicationContext();
-        CharSequence text = messageToUser;
         int durationOfToast = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, durationOfToast);
+        Toast toast = Toast.makeText(context, messageToUser, durationOfToast);
         toast.setGravity(Gravity.BOTTOM|Gravity.END, 150, 200);
         toast.show();
     }
