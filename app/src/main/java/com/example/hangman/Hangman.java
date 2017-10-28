@@ -1,10 +1,12 @@
 package com.example.hangman;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * @author Eric Groseclos
@@ -76,6 +78,7 @@ public class Hangman {
      * choosing a word from all available words.
      */
     public void newWord() {
+
         Random random = new Random();
         int randomWord = random.nextInt(allWords.size());
 

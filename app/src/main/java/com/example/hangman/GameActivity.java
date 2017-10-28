@@ -2,9 +2,12 @@ package com.example.hangman;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +37,8 @@ public class GameActivity extends AppCompatActivity {
 
     private ImageView image;
 
+    private SharedPreferences sharedPreferences;
+
 
     /**
      * Creates everything necessary for a round of "Hangman".
@@ -45,6 +50,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         image = (ImageView) findViewById(R.id.gallow);
 
@@ -113,6 +120,8 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Creates a list containing all words used in the game.
+     * Ensures that a word cannot be chosen again,
+     * until the player had guessed all words correctly.
      * @return  A list with all words
      */
     private ArrayList<String> createWordList() {
@@ -120,10 +129,38 @@ public class GameActivity extends AppCompatActivity {
 
         String[] wordArray = getResources().getStringArray(R.array.words);
 
-        for (String word : wordArray) {
-            words.add(word);
-        }
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        boolean firstTimePlaying = sharedPreferences.getBoolean("firstTime", true);
+
+        if (firstTimePlaying || sharedPreferences.getInt("size", 0) == wordArray.length) {
+
+            editor.clear();
+
+            editor.apply();
+
+            for (int i = 0; i < wordArray.length; i++) {
+                words.add(wordArray[i]);
+                editor.putString("word_" + i, wordArray[i]);
+            }
+
+            editor.putBoolean("firstTime", false);
+
+            editor.apply();
+
+        } else {
+            for (int i = 0; i < wordArray.length; i++) {
+                boolean add = true;
+                for (int j = 0; j < sharedPreferences.getInt("size", 1); j++) {
+                    if (wordArray[i].equals(sharedPreferences.getString("usedWord_" + j, "AWOL"))) {
+                        add = false;
+                    }
+                }
+                if (add) {
+                    words.add(wordArray[i]);
+                }
+            }
+        }
         return words;
     }
 
@@ -226,6 +263,11 @@ public class GameActivity extends AppCompatActivity {
      */
     private void checkIfWon() {
         if (hangman.hasWon()) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            int size = sharedPreferences.getInt("size", 0);
+            editor.putString("usedWord_" + size, hangman.getRealWord());
+            editor.putInt("size", size == getResources().getStringArray(R.array.words).length ? 0 : size + 1);
+            editor.apply();
             Intent intent = new Intent(this, ResultActivity.class);
             String message = "W " + hangman.getRealWord() + " " + hangman.getTriesLeft();
             intent.putExtra("Game result", message);
@@ -248,6 +290,7 @@ public class GameActivity extends AppCompatActivity {
             loadImage("hang" + hangman.getTriesLeft() + ".gif");
             usedLetters.setText(hangman.getBadLettersUsed());
             String outputString = "";
+
             if (hangman.hasLost()) {
                 Intent intent = new Intent(this, ResultActivity.class);
                 String message = "L " + hangman.getRealWord() + " " + hangman.getTriesLeft();
@@ -260,6 +303,7 @@ public class GameActivity extends AppCompatActivity {
                     outputString = hangman.getTriesLeft() + " " + getResources().getString(R.string.currentTries);
                 }
             }
+
             triesRemaining.setText(outputString);
         } else {
             letters.setText(hangman.getHiddenWord());
@@ -289,8 +333,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-
-        savedInstanceState.putStringArrayList("allWords", hangman.getAllWords());
 
         ArrayList<String> usedLetterList = new ArrayList<>();
 
