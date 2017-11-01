@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -136,8 +135,6 @@ public class GameActivity extends AppCompatActivity {
 
         boolean firstTimePlaying = sharedPreferences.getBoolean("firstTime", true);
 
-        Log.d("firstTime GameActivity", String.valueOf(sharedPreferences.getBoolean("firstTime", true)));
-
         if (firstTimePlaying || sharedPreferences.getInt("size", 0) == 0) {
 
             for (String word : wordArray) {
@@ -187,8 +184,9 @@ public class GameActivity extends AppCompatActivity {
      */
     private void processUserInput() {
         boolean guess = true;
-        EditText editText = (EditText) findViewById(R.id.userGuess);
-        String guessedLetterRaw = editText.getText().toString();
+        EditText userGuess = (EditText) findViewById(R.id.userGuess);
+        String guessedLetterRaw = userGuess.getText().toString();
+        userGuess.setText("");
 
         if (guessedLetterRaw.length() > 1) {
             guess = false;

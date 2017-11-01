@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,8 +39,6 @@ public class Hangman {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
 
-        Log.d("firstTime Hangman:", String.valueOf(sharedPreferences.getBoolean("firstTime", true)));
-
         if (sharedPreferences.getBoolean("firstTime", true) || getHiddenWord().equals(getRealWord())) {
             this.allWords = allWords;
             tries = 10;
@@ -53,12 +50,10 @@ public class Hangman {
 
             newWord();
         } else {
-            Log.d("Hangman", "Fetching values from DefaultSharedPreferences");
             Set<String> usedLetterSet = sharedPreferences.getStringSet("usedLetters", null);
 
             for (String usedLetter : usedLetterSet) {
                 usedLetters.add(usedLetter.charAt(0));
-                Log.d("Used letters:", usedLetter);
             }
 
             tries = sharedPreferences.getInt("tries", 10);
@@ -128,7 +123,6 @@ public class Hangman {
         }
 
         editor.putString("word", word);
-        Log.d("The word is", word);
         editor.apply();
     }
 

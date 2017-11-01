@@ -22,8 +22,8 @@
             android:label="@string/about"></activity>
         <activity
             android:name="com.example.hangman.GameActivity"
-            android:screenOrientation="portrait"
             android:label="@string/game"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             android:parentActivityName="com.example.hangman.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
