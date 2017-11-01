@@ -22,10 +22,13 @@
     <string name="the_hanged_man">The gallows</string>
     <string name="error_1">You may only enter one letter!</string>
     <string name="error_2">You have already used this letter!</string>
+    <string name="error_3">Letters only, please!</string>
 
     <!-- ResultActivity -->
     <string name="returnToMain">Back to main menu</string>
     <string name="theWord">The word was:</string>
     <string name="triesAtEnd">Tries left:</string>
+    <string name="win">You won!</string>
+    <string name="lose">You lost!</string>
 
 </resources>

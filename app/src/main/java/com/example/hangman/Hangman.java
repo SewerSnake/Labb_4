@@ -1,18 +1,25 @@
 package com.example.hangman;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @author Eric Groseclos
  * @version 1.0
  */
 public class Hangman {
+
+    private SharedPreferences sharedPreferences;
+
+    private static Random random = new Random();
 
     //A list that contains all guessable words
     private ArrayList<String> allWords;
@@ -29,21 +36,54 @@ public class Hangman {
      * Creates a new Hangman game, and chooses a word.
      * @param allWords  a list of all words the game can choose from
      */
-    public Hangman(ArrayList<String> allWords) {
+    public Hangman(ArrayList<String> allWords, Context appContext) {
 
-        this.allWords = allWords;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
 
-        tries = 10;
+        Log.d("firstTime Hangman:", String.valueOf(sharedPreferences.getBoolean("firstTime", true)));
 
-        word = " ";
+        if (sharedPreferences.getBoolean("firstTime", true) || getHiddenWord().equals(getRealWord())) {
+            this.allWords = allWords;
+            tries = 10;
+            word = " ";
 
-        newWord();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstTime", false);
+            editor.apply();
+
+            newWord();
+        } else {
+            Log.d("Hangman", "Fetching values from DefaultSharedPreferences");
+            Set<String> usedLetterSet = sharedPreferences.getStringSet("usedLetters", null);
+
+            for (String usedLetter : usedLetterSet) {
+                usedLetters.add(usedLetter.charAt(0));
+                Log.d("Used letters:", usedLetter);
+            }
+
+            tries = sharedPreferences.getInt("tries", 10);
+
+            word = sharedPreferences.getString("word", "AWOL");
+
+            Set<String> visibleSet = sharedPreferences.getStringSet("visible", null);
+
+            visible = new boolean[visibleSet.size()];
+            int i = 0;
+            for (String boolString : visibleSet) {
+                if (boolString.equals("true")) {
+                    visible[i] = true;
+                } else if(boolString.equals("false")) {
+                    visible[i] = false;
+                }
+                i++;
+            }
+        }
 
     }
 
-    public Hangman(Bundle savedInstanceState) {
+    public Hangman(Bundle savedInstanceState, Context appContext) {
 
-        allWords = savedInstanceState.getStringArrayList("allWords");
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
 
         ArrayList<String> usedLetterList;
 
@@ -55,14 +95,10 @@ public class Hangman {
 
         tries = savedInstanceState.getInt("tries", 10);
 
-        word = savedInstanceState.getString("word", "ANCIENT");
+        word = savedInstanceState.getString("word", "AWOL");
 
         visible = savedInstanceState.getBooleanArray("visible");
 
-    }
-
-    public ArrayList<String> getAllWords() {
-        return allWords;
     }
 
     public ArrayList<Character> getUsedLetters() {
@@ -79,16 +115,21 @@ public class Hangman {
      */
     public void newWord() {
 
-        Random random = new Random();
-        int randomWord = random.nextInt(allWords.size());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        
+        int randomWordIndex = random.nextInt(allWords.size());
 
-        word = allWords.get(randomWord);
+        word = allWords.get(randomWordIndex);
 
         visible = new boolean[word.length()];
 
         for (int i = 0; i < word.length(); i++) {
             visible[i] = false;
         }
+
+        editor.putString("word", word);
+        Log.d("The word is", word);
+        editor.apply();
     }
 
     /**
@@ -129,6 +170,7 @@ public class Hangman {
      * @param guess the letter the user has entered
      */
     public void guess(char guess) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         boolean reduceTries = false;
         boolean changedVisibility = false;
@@ -144,8 +186,28 @@ public class Hangman {
 
         if (reduceTries && !changedVisibility) {
             tries--;
+            editor.putInt("tries", tries);
         }
+
+        if (changedVisibility) {
+            Set<String> visibleSet = new HashSet<>();
+            for (int i = 0; i < visible.length; i++) {
+                if (visible[i]) {
+                    visibleSet.add("true");
+                } else {
+                    visibleSet.add("false");
+                }
+            }
+            editor.putStringSet("visible", visibleSet);
+        }
+
         usedLetters.add(guess);
+        Set<String> usedLettersSet = new HashSet<>();
+        for (Character usedLetter : usedLetters) {
+            usedLettersSet.add(String.valueOf(usedLetter));
+        }
+        editor.putStringSet("usedLetters", usedLettersSet);
+        editor.apply();
     }
 
     /**
@@ -221,11 +283,7 @@ public class Hangman {
      * correctly. Returns false if the user has not done this yet
      */
     public boolean hasWon() {
-        if (getHiddenWord().equals(getRealWord())) {
-            return true;
-        } else {
-            return false;
-        }
+        return getHiddenWord().equals(getRealWord());
     }
 
     /**
@@ -234,11 +292,7 @@ public class Hangman {
      * false if he or she can still play
      */
     public boolean hasLost() {
-        if (getTriesLeft() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return getTriesLeft() == 0;
     }
 
 }

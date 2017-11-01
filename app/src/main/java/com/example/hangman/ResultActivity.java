@@ -1,6 +1,8 @@
 package com.example.hangman;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,10 +15,6 @@ import android.widget.TextView;
  * @version 1.0
  */
 public class ResultActivity extends AppCompatActivity {
-
-    private final String WIN = "You won!";
-
-    private final String LOSE = "You lost!";
 
     private String theWord;
 
@@ -40,6 +38,13 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("firstTime");
+        editor.apply();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         theWord = getResources().getString(R.string.theWord);
         triesAtEnd = getResources().getString(R.string.triesAtEnd);
 
@@ -54,13 +59,13 @@ public class ResultActivity extends AppCompatActivity {
         values = receivedMessage.split(" ");
 
         if (values[0].equals("W")) {
-            resultOfGame.setText(WIN);
+            resultOfGame.setText(getResources().getString(R.string.win));
             String output = theWord + " " + values[1];
             word.setText(output);
             output = triesAtEnd + " " + values[2];
             triesRemaining.setText(output);
         } else if (values[0].equals("L")) {
-            resultOfGame.setText(LOSE);
+            resultOfGame.setText(getResources().getString(R.string.lose));
             String output = theWord + " " + values[1];
             word.setText(output);
             output = triesAtEnd + " " + values[2];
@@ -70,6 +75,7 @@ public class ResultActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main_menu_buttons, menu);
         return true;
     }

@@ -1,8 +1,12 @@
 package com.example.hangman;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.AppLaunchChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main_menu_buttons, menu);
         return true;
     }
@@ -49,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
      * which allows the user to play the "Hangman" game. */
     public void game(View view) {
         Intent intent = new Intent(this, GameActivity.class);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("firstTime");
+        editor.apply();
         startActivity(intent);
     }
 

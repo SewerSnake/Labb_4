@@ -18,4 +18,7 @@
     <string name="error_2">Du har redan använt denna bokstav!</string>
     <string name="currentTries">försök kvar</string>
     <string name="oneTry">försök kvar</string>
+    <string name="error_3">Bara bokstäver, tack!</string>
+    <string name="win">Du vann!</string>
+    <string name="lose">Du förlorade!</string>
 </resources>

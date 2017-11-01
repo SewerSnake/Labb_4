@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.example.hangman.MainActivity"
             android:label="@string/main_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,14 +18,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name="com.example.hangman.AboutActivity"
             android:label="@string/about"></activity>
         <activity
-            android:name=".GameActivity"
-            android:label="@string/game"></activity>
+            android:name="com.example.hangman.GameActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/game"
+            android:parentActivityName="com.example.hangman.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.hangman.MainActivity" />
+        </activity>
         <activity
-            android:name=".ResultActivity"
-            android:label="@string/result"></activity>
+            android:name="com.example.hangman.ResultActivity"
+            android:label="@string/result"
+            android:parentActivityName="com.example.hangman.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.hangman.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
