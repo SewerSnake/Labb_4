@@ -3,7 +3,6 @@ package com.example.hangman;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,8 +12,6 @@ import android.widget.Spinner;
 
 public class ChooseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private boolean hasChosen;
-
     private int idOfArray;
 
     @Override
@@ -22,7 +19,7 @@ public class ChooseActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = (Spinner) findViewById(R.id.categories);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.labels, android.R.layout.simple_spinner_dropdown_item);
@@ -61,17 +58,13 @@ public class ChooseActivity extends AppCompatActivity implements AdapterView.OnI
      *  A listener, which identifies what was selected from the spinner.
      */
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        hasChosen = true;
         idOfArray = pos;
     }
 
     /**
-     * If the player does not choose anything, nothing
-     * happens when he/she presses the "CHOOSE" button.
+     *  Overrided method from interface OnItemSelectedListener
      */
-    public void onNothingSelected(AdapterView<?> parent) {
-        hasChosen = false;
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     /**
      *  If the player has chosen a category,
@@ -80,11 +73,9 @@ public class ChooseActivity extends AppCompatActivity implements AdapterView.OnI
      *  which words will appear in the game.
      */
     public void choose(View view) {
-        if (hasChosen) {
-            Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra("category", idOfArray);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("category", idOfArray);
+        startActivity(intent);
     }
 
 }

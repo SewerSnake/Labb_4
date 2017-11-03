@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
             case R.id.action_play:
-                startActivity(new Intent(this, GameActivity.class));
+                startActivity(new Intent(this, ChooseActivity.class));
                 return true;
             default:
         }

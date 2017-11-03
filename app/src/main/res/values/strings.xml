@@ -5,7 +5,7 @@
     <string name="about">About game</string>
     <string name="game">Escape the gallows!</string>
     <string name="result">Result</string>
-    <string name="choose">Choose words</string>
+    <string name="choose">Choose category</string>
 
     <!-- MainActivity -->
     <string name="hangman">Hangman</string>
