@@ -1,8 +1,10 @@
 package com.example.hangman;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -133,7 +135,9 @@ public class GameActivity extends AppCompatActivity {
 
         String[] wordArray = fetchWords();
 
-        boolean firstTimePlaying = sharedPreferences.getBoolean("firstTime", true);
+        SharedPreferences firstTimePrefs = getSharedPreferences("GameActivity", 0);
+
+        boolean firstTimePlaying = firstTimePrefs.getBoolean("firstTime", true);
 
         if (firstTimePlaying || sharedPreferences.getInt("size", 0) == 0) {
 
@@ -352,7 +356,11 @@ public class GameActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         int durationOfToast = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, messageToUser, durationOfToast);
-        toast.setGravity(Gravity.BOTTOM|Gravity.END, 150, 200);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            toast.setGravity(Gravity.BOTTOM | Gravity.END, 150, 200);
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            toast.setGravity(Gravity.BOTTOM | Gravity.END, 0, 140);
+        }
         toast.show();
     }
 

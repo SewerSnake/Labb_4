@@ -38,13 +38,14 @@ public class Hangman {
     public Hangman(ArrayList<String> allWords, Context appContext) {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
+        SharedPreferences firstTimePrefs = appContext.getSharedPreferences("GameActivity", 0);
 
-        if (sharedPreferences.getBoolean("firstTime", true) || getHiddenWord().equals(getRealWord())) {
+        if (visible == null || getHiddenWord().equals(getRealWord())) {
             this.allWords = allWords;
             tries = 10;
             word = " ";
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            SharedPreferences.Editor editor = firstTimePrefs.edit();
             editor.putBoolean("firstTime", false);
             editor.apply();
 

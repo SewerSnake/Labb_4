@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
      * which allows the user to play the "Hangman" game. */
     public void game(View view) {
         Intent intent = new Intent(this, ChooseActivity.class);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("firstTime");
-        editor.apply();
+        SharedPreferences sharedPreferences = getSharedPreferences("firstTime", 0);
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.remove("firstTime");
+        //editor.apply();
         startActivity(intent);
     }
 
