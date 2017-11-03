@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="words">
-        <item>ALCHEMY</item>          
-        <item>ANCIENT</item>  
-        <item>BURROW</item>  
-        <item>LEGENDARY</item>  
-        <item>PREMIER</item>  
-        <item>QUARANTINE</item>  
+    <string-array name="labels">
+        <item>Animals</item>
+        <item>Medieval</item>
+        <item>Zodiac</item>
+
+    </string-array>
+
+    <string-array name="animals">
+        <item>DOG</item>
+        <item>CRAB</item>  
+        <item>ELEPHANT</item>  
         <item>ROOSTER</item>  
-        <item>ZODIAC</item>
+        <item>CAT</item>
+        <item>LION</item>
+    </string-array>
+
+    <string-array name="medieval">
+        <item>DRAGON</item>
+        <item>LEGENDARY</item>
+        <item>BURROW</item>
+        <item>HOBBIT</item>
+        <item>DWARF</item>
+        <item>ELF</item>
+        <item>ALCHEMY</item>
+    </string-array>
+
+    <string-array name="zodiac">
+        <item>AQUARIUS</item>
+        <item>PISCES</item>
+        <item>ARIES</item>
+        <item>TAURUS</item>
+        <item>GEMINI</item>
+        <item>CANCER</item>
+        <item>LEO</item>
+        <item>VIRGO</item>
+        <item>LIBRA</item>
+        <item>SCORPIO</item>
+        <item>SAGITTARIUS</item>
+        <item>CAPRICORN</item>
     </string-array>
 </resources>

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the "PLAY GAME" button. Starts a new activity,
      * which allows the user to play the "Hangman" game. */
     public void game(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, ChooseActivity.class);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("firstTime");

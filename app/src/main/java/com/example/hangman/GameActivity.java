@@ -131,7 +131,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> createWordList() {
         ArrayList<String> words = new ArrayList<>();
 
-        String[] wordArray = getResources().getStringArray(R.array.words);
+        String[] wordArray = fetchWords();
 
         boolean firstTimePlaying = sharedPreferences.getBoolean("firstTime", true);
 
@@ -155,6 +155,25 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         return words;
+    }
+
+    /**
+     * Gets the batch of words that the player chose in ChooseActivity.
+     * @return  An array containing the words to be used in the game
+     */
+    private String[] fetchWords() {
+        Intent intent = getIntent();
+        int index = intent.getIntExtra("category", 0);
+        switch (index) {
+            case 0:
+                return getResources().getStringArray(R.array.animals);
+            case 1:
+                return getResources().getStringArray(R.array.medieval);
+            case 2:
+                return getResources().getStringArray(R.array.zodiac);
+            default:
+                return getResources().getStringArray(R.array.animals);
+        }
     }
 
     /**
@@ -199,7 +218,7 @@ public class GameActivity extends AppCompatActivity {
             guessedLetter = guessedLetterRaw.charAt(0);
         }
 
-        if (!isLetter(guessedLetter)) {
+        if (!isLetter(guessedLetter) && guess) {
             guess = false;
             createToast(getResources().getString(R.string.error_3));
         }
@@ -261,13 +280,30 @@ public class GameActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             int index = sharedPreferences.getInt("size", 0);
             editor.putString("usedWord_" + index, hangman.getRealWord());
-            int numberOfWords = getResources().getStringArray(R.array.words).length;
-            editor.putInt("size", index + 1 == numberOfWords ? 0 : index + 1);
+            editor.putInt("size", index + 1 == numberOfWords() ? 0 : index + 1);
             editor.apply();
-            Intent intent = new Intent(this, ResultActivity.class);
+            Intent resultIntent = new Intent(this, ResultActivity.class);
             String message = "W " + hangman.getRealWord() + " " + hangman.getTriesLeft();
-            intent.putExtra("Game result", message);
-            startActivity(intent);
+            resultIntent.putExtra("Game result", message);
+            startActivity(resultIntent);
+        }
+    }
+
+    /**
+     *  Returns the number of words the array has.
+     */
+    private int numberOfWords() {
+        Intent chooseIntent = getIntent();
+        int index = chooseIntent.getIntExtra("category", 0);
+        switch (index) {
+            case 0:
+                return getResources().getStringArray(R.array.animals).length;
+            case 1:
+                return getResources().getStringArray(R.array.medieval).length;
+            case 2:
+                return getResources().getStringArray(R.array.zodiac).length;
+            default:
+                return getResources().getStringArray(R.array.animals).length;
         }
     }
 
