@@ -77,9 +77,9 @@ public class ChooseActivity extends AppCompatActivity implements AdapterView.OnI
     public void onNothingSelected(AdapterView<?> parent) {}
 
     /**
-     *  If the player has chosen a category,
-     *  a game is started with that specific
-     *  category. The category dictates
+     *  If the player taps the "CHOOSE" button,
+     *  a game is started with the category listed
+     *  in the spinner. This category dictates
      *  which words will appear in the game.
      */
     public void choose(View view) {
