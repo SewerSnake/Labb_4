@@ -77,6 +77,12 @@ public class Hangman {
 
     }
 
+    /**
+     * Loads the game state the application was in when
+     * the phone changed from Portrait to Landscape mode.
+     * @param savedInstanceState    A bundle containing crucial game data
+     * @param appContext    The context of the application
+     */
     public Hangman(Bundle savedInstanceState, Context appContext) {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);

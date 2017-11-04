@@ -1,6 +1,6 @@
 package com.example.hangman;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -348,8 +348,8 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * A toast is created to inform the player that he/she has
-     * done something undesirable, i.e giving more than one letter
-     * or entering a used letter.
+     * done something undesirable, i.e entering a non-letter,
+     * entering more than one letter, or entering a used letter.
      * @param messageToUser What shall be displayed to the player
      */
     private void createToast(String messageToUser) {
