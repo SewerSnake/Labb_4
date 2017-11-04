@@ -15,12 +15,19 @@ import android.view.View;
  */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     *  Creates the main menu for the game.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     *  Inflates the menu. The necessary buttons are
+     *  added to the Actionbar.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);

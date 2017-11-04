@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 public class AboutActivity extends AppCompatActivity {
 
+    /**
+     *  An Activity is created, where the name of
+     *  the application programmer is shown.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

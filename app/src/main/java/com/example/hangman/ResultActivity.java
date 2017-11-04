@@ -73,6 +73,10 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Inflates the menu. The necessary buttons are
+     *  added to the Actionbar.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);

@@ -14,6 +14,12 @@ public class ChooseActivity extends AppCompatActivity implements AdapterView.OnI
 
     private int idOfArray;
 
+    /**
+     *  An Activity is created, where the player can choose
+     *  between different categories. After selecting a
+     *  category in the Spinner, the player must then tap
+     *  the "CHOOSE" button TO start the game.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +37,10 @@ public class ChooseActivity extends AppCompatActivity implements AdapterView.OnI
         spinner.setOnItemSelectedListener(this);
     }
 
+    /**
+     *  Inflates the menu. The necessary buttons are
+     *  added to the Actionbar.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
